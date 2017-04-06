@@ -32,4 +32,8 @@ module.exports = class Player {
         ws = {};
     }
 
+    notify(command) {
+        ws.send(command);
+    }
+
 }
