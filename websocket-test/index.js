@@ -16,4 +16,10 @@ wss.on('connection', (ws) => {
             }
         });
     });
+
+    ws.on('close', (data) => {
+        let userId = ws.upgradeReq.headers['sec-websocket-key'];
+        console.log(`Disconectado... ${userId}`);
+    });
+
 });
