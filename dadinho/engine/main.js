@@ -9,7 +9,11 @@ module.exports = class Engine {
 
     constructor() {
         console.log('Constructor...');
-        this.context = {};
+        this.context = {
+            ws: {},
+            wss: {},
+            rooms: []
+        };
         this.gameEvent = new EventEmmiter();
         this.gameEvent.on('show-rooms', showRoomsCommand);
     }
@@ -33,9 +37,9 @@ module.exports = class Engine {
 
     dispatchCommand(ws, data) {
         try {
-            let command = JSON.parse(data);
+            let commandRequest = JSON.parse(data);
             this.context.ws = ws;
-            this.gameEvent.emit(command.type, this.context);
+            this.gameEvent.emit(commandRequest.type, this.context);
         } catch (e) {
             console.log(`Commando inválido: ${data}`);
         }

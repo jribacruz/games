@@ -20,5 +20,14 @@ module.exports = class Room {
          */
         this.players = [];
     }
+    
+    /**
+     * Envia mensagem para todos os jogadores.
+     */
+    broadcast(command) {
+        this.players.forEach((player) => {
+            player.notify(command);
+        });
+    }
 
 }
