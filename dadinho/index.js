@@ -1,3 +1,5 @@
 const Engine = require('./engine.js');
 
-var room = new Engine();
+var engine = new Engine();
+
+engine.start();
