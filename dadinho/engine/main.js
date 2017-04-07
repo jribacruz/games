@@ -1,6 +1,7 @@
 const WebSocket = require('ws');
 const EventEmmiter = require('events');
 const showRoomsCommand = require('./commands/showRooms.js');
+const createRoomCommand = require('./commands/createRoom.js')
 
 /*
  * Classe que motor do dadinho.
@@ -16,6 +17,7 @@ module.exports = class Engine {
         };
         this.gameEvent = new EventEmmiter();
         this.gameEvent.on('show-rooms', showRoomsCommand);
+        this.gameEvent.on('create-room', createRoomCommand);
     }
 
     /**
@@ -39,9 +41,9 @@ module.exports = class Engine {
         try {
             let commandRequest = JSON.parse(data);
             this.context.ws = ws;
-            this.gameEvent.emit(commandRequest.type, this.context);
+            this.gameEvent.emit(commandRequest.type, this.context, commandRequest.request);
         } catch (e) {
-            console.log(`Commando inválido: ${data}`);
+            console.log(`Commando inválido: ${data} , ${e}`);
         }
     }
 }

@@ -7,6 +7,10 @@ module.exports = class Room {
 
     constructor() {
         /**
+         * Nome da sala
+         */
+        this.name = ""
+        /**
          * Estado da sala
          * 
          * 0 - Esperando jogadores
