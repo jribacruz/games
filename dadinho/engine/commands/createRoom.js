@@ -6,25 +6,35 @@ const crypto = require('crypto');
  * 
  */
 module.exports = function createRoomCommand(context, request) {
+    /**
+     * 
+     */
+    this._genRoomId = _genRoomId;
+
+
     // Verifica se há uma nome de sala na requisição
-    if(request.name) {
+    if (request.name) {
         // Verifica se o nome de sala já existe.
-        if(!_.find(context.rooms, (room) => { room.name = request.name; })) {
+        if (!_.find(context.rooms, (room) => { room.name = request.name; })) {
             let room = new Room();
             room.name = request.name;
-            let salt = (new Date()).valueOf().toString();
-            var md5sum = crypto.createHash('md5');
-            room.id = md5sum.update(`${salt}${room.name}`).digest('hex');
-            context.rooms[room.id] = room;
+            room.id = context.rooms[room.id] = _genRoomId(room.name);
 
             let commandResponse = {
                 type: 'create-room',
                 response: {
                     room: room
                 }
-            }            
+            }
 
             context.ws.send(JSON.stringify(commandResponse));
         }
     }
+
+    function _genRoomId(roomName) {
+        let salt = (new Date()).valueOf().toString();
+        var md5sum = crypto.createHash('md5');
+        return md5sum.update(`${salt}${roomName}`).digest('hex');
+    }
+
 }
