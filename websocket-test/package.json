@@ -9,7 +9,7 @@
   "author": "jcruz",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "^1.7.3",
+    "socket.io": "^2.0.2",
     "ws": "^2.2.3"
   }
 }
