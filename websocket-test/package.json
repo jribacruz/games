@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "author": "jcruz",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "^1.7.3",
-    "ws": "^2.2.3"
-  }
+    "socket.io": "^3.0.0",
+    "ws": "^5.2.3",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
